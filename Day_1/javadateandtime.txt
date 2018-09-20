@@ -1,0 +1,15 @@
+import java.time.LocalDate;
+public class solution{
+public static String getDay(String d,String m, String y){
+    int yy=Integer.parseInt(y);
+    int mm=Integer.parseInt(m);
+    int dd=Integer.parseInt(d);
+    if(yy>2000 && yy<3000){
+       LocalDate dt = LocalDate.of(yy, mm, dd);
+       return (dt.getDayOfWeek().toString());
+        
+    }
+    else{
+        return "invalid";
+    }
+}
