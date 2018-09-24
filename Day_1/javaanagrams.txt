@@ -1,0 +1,56 @@
+import java.util.Scanner;
+
+public class Solution {
+    static boolean isAnagram(String a, String b) {
+        // Complete the function
+        if(a.length()<=50 && a.length()>=1 && b.length()<=50 && b.length()>=1)
+        {   
+            a=a.toLowerCase();
+            b=b.toLowerCase();
+            char temp;
+            if(a.length()==b.length()){
+            char aArray[] = a.toCharArray();
+            char bArray[] = b.toCharArray();
+            //sorting both arrays
+                for(int i=1;i<a.length();i++){
+                for (int j = i; j > 0; j--) {
+                     if (aArray[j] < aArray [j - 1]) {
+                         temp = aArray[j];
+                         aArray[j] = aArray[j - 1];
+                         aArray[j - 1] = temp;
+                        }
+                    if (bArray[j] < bArray [j - 1]) {
+                         temp = bArray[j];
+                         bArray[j] = bArray[j - 1];
+                         bArray[j - 1] = temp;
+                        }
+                    }
+                }
+                for(int i=0;i<a.length();i++){
+                    if(aArray[i]!=bArray[i])
+                    {
+                        return false;
+                    }else if(i==a.length()-1){
+                        return true;
+                    }else {
+                        
+                    }
+                }
+            }   
+        else {
+                return false;
+            }
+            
+        }
+            return false;
+    }
+	 public static void main(String[] args) {
+    
+        Scanner scan = new Scanner(System.in);
+        String a = scan.next();
+        String b = scan.next();
+        scan.close();
+        boolean ret = isAnagram(a, b);
+        System.out.println( (ret) ? "Anagrams" : "Not Anagrams" );
+    }
+}
