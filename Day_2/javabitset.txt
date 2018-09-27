@@ -1,0 +1,25 @@
+import java.io.*;
+import java.util.*;
+import java.util.function.*;
+
+public class Solution {
+
+    public static void main(String[] args) {
+        /* Enter your code here. Read input from STDIN. Print output to STDOUT. Your class should be named Solution. */
+         Scanner sc = new Scanner(System.in);
+    int setSize = sc.nextInt();
+    int n = sc.nextInt();
+    BitSet[] bitSets = new BitSet[]{new BitSet(setSize), new BitSet(setSize)};
+    Map<String, BiConsumer<Integer,Integer>> o = new HashMap<>();
+    o.put("AND", (index1, index2) -> bitSets[index1-1].and(bitSets[index2-1]));
+    o.put("OR", (index1, index2) -> bitSets[index1-1].or(bitSets[index2-1]));
+    o.put("XOR", (index1, index2) -> bitSets[index1-1].xor(bitSets[index2-1]));
+    o.put("SET", (index1, index2) -> bitSets[index1-1].set(index2));
+    o.put("FLIP", (index1, index2) -> bitSets[index1-1].flip(index2));
+    for (int i = 0; i < n; i++){
+        o.get(sc.next()).accept(sc.nextInt(), sc.nextInt());    
+        System.out.println(bitSets[0].cardinality() + " " + bitSets[1].cardinality());       
+
+    }
+}
+}
