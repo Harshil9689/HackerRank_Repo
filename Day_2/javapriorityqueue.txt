@@ -1,0 +1,105 @@
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+/*
+ * Create the Student and Priorities classes here.
+ */
+class Student {
+    private int id;
+    private String name;
+    private double cgpa;
+    
+    public Student (String name,  double cgpa, int id){
+        this.id = id;
+        this.name = name;
+        this.cgpa = cgpa;
+    }
+    public int getID(){
+        return this.id;
+    }
+    public String getName(){
+        return this.name;
+    }
+    public double getCGPA(){
+        return this.cgpa;
+    }
+}
+
+
+class StudentComparator implements java.util.Comparator<Student>{
+    
+  public int compare(Student s1, Student s2){
+        if(s1.getCGPA() < s2.getCGPA()) 
+            return 1;
+        else if(s1.getCGPA() > s2.getCGPA()) 
+            return -1;
+        else{
+            if(s1.getName().equals(s2.getName())){
+                return s1.getID()-s2.getID();
+            }
+        }
+        return s1.getName().compareTo(s2.getName());
+    }
+}
+
+class Priorities {
+    private java.util.PriorityQueue<Student> pQueue;
+    
+    public Priorities() {
+        java.util.Comparator<Student> comparator = new StudentComparator();
+        this.pQueue = new java.util.PriorityQueue<Student>(12, new StudentComparator());
+    }
+    
+    
+    public List<Student> getStudents(List<String> events){
+        int n = events.size();
+        String[] inputs;
+        
+        for(int i=0; i<n; i++){
+            inputs = events.get(i).split(" ");
+            if(inputs[0].equals("SERVED")){
+                pQueue.poll();
+            }
+            else if(inputs[0].equals("ENTER")){
+                int id = Integer.parseInt(inputs[3]);
+                double cgpa = Double.parseDouble(inputs[2]);
+                String name = inputs[1];
+                Student student = new Student(name,cgpa,id);
+                pQueue.add(student);
+            }
+        }
+        
+        List<Student> studentList = new ArrayList<Student>();
+        int qSize = pQueue.size();
+        for(int i=0; i<qSize; i++){
+            studentList.add(pQueue.poll());
+        }
+        return studentList;
+    }
+}
+
+public class Solution {
+    private final static Scanner scan = new Scanner(System.in);
+    private final static Priorities priorities = new Priorities();
+    
+    public static void main(String[] args) {
+        int totalEvents = Integer.parseInt(scan.nextLine());    
+        List<String> events = new ArrayList<>();
+        
+        while (totalEvents-- != 0) {
+            String event = scan.nextLine();
+            events.add(event);
+        }
+        
+        List<Student> students = priorities.getStudents(events);
+        
+        if (students.isEmpty()) {
+            System.out.println("EMPTY");
+        } else {
+            for (Student st: students) {
+                System.out.println(st.getName());
+            }
+        }
+    }
+}
