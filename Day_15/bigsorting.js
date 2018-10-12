@@ -27,10 +27,12 @@ function readLine() {
 // Complete the bigSorting function below.
 function bigSorting(unsorted) {
 
-unsorted.sort(function(a, b){ 
-            return BigNumber(a).comparedTo(BigNumber(b));
-        });
-       
+unsorted.sort(function(a,b){
+        if(a.length == b.length){
+            return a > b ? 1 : -1;
+        }
+        return a.length - b.length; 
+    });
     return unsorted;
 }
 
