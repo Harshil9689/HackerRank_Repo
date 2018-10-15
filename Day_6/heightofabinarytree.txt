@@ -1,0 +1,13 @@
+public static int height(Node root) {
+      	// Write your code here.
+        Node temp=root;
+        int lheight=-1,rheight=-1;
+        if(temp.left!=null){
+            lheight=height(temp.left);
+        }
+         if(temp.right!=null){
+            lheight=height(temp.right);
+        }
+        int maxheight=java.lang.Math.max(lheight,rheight)+1;
+        return maxheight;
+    }
