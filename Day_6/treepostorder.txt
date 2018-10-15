@@ -1,0 +1,12 @@
+public static void postOrder(Node root) {
+        Node temp=root;
+        if(temp.left!=null){
+            postOrder(temp.left);
+        }
+        if(temp.right!=null){
+            postOrder(temp.right);
+        }
+        System.out.print(temp.data+" ");
+        
+
+    }
